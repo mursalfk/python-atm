@@ -1,12 +1,19 @@
+#Importing Important libraries
 import random
 import time as t
 import json
 import datetime
 
-def file_create(userid, username, name, pin, status, password, balance):
-    def write_json(data, filename='data.json'): 
+def write_json_func(data, filename):
+    """Function for writing data back in the JSON File"""
+    def write_json(data, filename): 
         with open(filename,'w') as f: 
-            json.dump(data, f, indent=4) 
+            json.dump(data, f, indent=4)
+    return write_json(data, filename)
+
+
+def user_create(userid, username, name, pin, status, password, balance): 
+    """Function for creating the user in JSON File"""
     with open('data.json') as json_file: 
         data = json.load(json_file) 
         temp = data['userdata'] 
@@ -21,14 +28,13 @@ def file_create(userid, username, name, pin, status, password, balance):
             "transactions": {}
         }
         temp.append(userdata_temp)
-    write_json(data)
+    write_json_func(data, filename='data.json')
+
 
 def chng_pwd(current_password):
+    """Updating the Password at Runtime"""
     confirm_password = input("Please enter your current Password: ")
-    if confirm_password == current_password:
-        def write_json(data, filename='data.json'): 
-            with open(filename,'w') as f: 
-                json.dump(data, f, indent=4) 
+    if confirm_password == current_password: 
         with open('data.json') as json_file: 
             data = json.load(json_file)
             userid = input("Please enter your Userid Again: ")
@@ -40,16 +46,14 @@ def chng_pwd(current_password):
                 filtered[0]["Password"] = newpass
             else:
                 input("Your Passswords did not match. Please Start over and try again.")
-        write_json(data) 
+        write_json_func(data, filename='data.json') 
     else:
         print("Please enter the correct password and start over. Thanks")
         
+#Update Pin Code at Runtime
 def chng_pin(current_pin):
     confirm_pin = input("Please enter your current Pin: ")
-    if confirm_pin == current_pin:
-        def write_json(data, filename='data.json'): 
-            with open(filename,'w') as f: 
-                json.dump(data, f, indent=4) 
+    if confirm_pin == current_pin: 
         with open('data.json') as json_file: 
             data = json.load(json_file)
             userid = input("Please enter your Userid Again: ")
@@ -61,17 +65,16 @@ def chng_pin(current_pin):
                 filtered[0]["pin"] = newpin
             else:
                 input("Your Entered Pin Codes did not match. Please Start over and try again.")
-        write_json(data) 
+        write_json_func(data, filename='data.json') 
     else:
         print("Please enter the correct pin code and start over. Thanks")
 
+#Check Balance (Need Updatation)
 def balance_inquiry(current_balance):
-    print("Your Current Balance is %s Rupees." %current_balance ) 
-    
+    print("Your Current Balance is %s Rupees." %current_balance )
+
+#Function to Add Balance
 def add_balance(current_balance):
-    def write_json(data, filename='data.json'): 
-        with open(filename,'w') as f: 
-            json.dump(data, f, indent=4) 
     with open('data.json') as json_file: 
         data = json.load(json_file)
         userid = input("Please enter your Userid Again: ")
@@ -82,16 +85,14 @@ def add_balance(current_balance):
         filtered[0]["Balance"] = new_balance
         my_date = datetime.datetime.now()
         my_date_formatted = my_date.strftime('%Y-%m-%dT%H:%M:%S')
-        filtered[0]["transactions"][str(my_date_formatted)] = "Added " + str(add_balance)
-    write_json(data) 
+        filtered[0]["transactions"][str(my_date_formatted)] = "Added " + str(add_balance)    
+    write_json_func(data, filename='data.json')
 
+#Function for withdrawal
 def withdrawal(current_balance):
     if current_balance == 0:
         print("Sorry. Your Current Balance is 0")
-    else:
-        def write_json(data, filename='data.json'): 
-            with open(filename,'w') as f: 
-                json.dump(data, f, indent=4) 
+    else: 
         with open('data.json') as json_file: 
             data = json.load(json_file)
             userid = input("Please enter your Userid Again: ")
@@ -106,15 +107,52 @@ def withdrawal(current_balance):
                 my_date = datetime.datetime.now()
                 my_date_formatted = my_date.strftime('%Y-%m-%dT%H:%M:%S')
                 filtered[0]["transactions"][str(my_date_formatted)] = "Withdrawn " + str(balance_wihdrawl)
-        write_json(data) 
-    
+        write_json_func(data, filename='data.json') 
+
+#Function to print Transaction History
 def print_history(data, userid_sign):
     for user in data['userdata']:
         if user['id']==userid_sign:
             print("Transaction History:")
             for each in user['transactions']:
                 print(each + " : " + user['transactions'][each])
+                
+#When the user is signed in, now it decides what it has to do (it = user)
+def signed_in(current_username, userid_sign, current_name, current_password, current_pin, current_balance, data):
+    current_username = userid_sign
+    print("Hello Mr/Ms. " + current_name)
+    post_signin = "1"
+    while post_signin != "0":
+        post_signin = input("""What would you like to do?
+        1. Change Password
+        2. Change Pin
+        3. Balance Inquiry
+        4. Add Balance
+        5. Withdrawl
+        6. Transaction History
+        0. Signout
+        """)
+        if post_signin == "1":
+            chng_pwd(current_password)
 
+        elif post_signin == "2":
+            chng_pin(current_pin)
+
+        elif post_signin == "3":
+            balance_inquiry(current_balance)
+
+        elif post_signin == "4":
+            add_balance(current_balance)
+
+        elif post_signin == "5":
+            withdrawal(current_balance)
+
+        elif post_signin == "6":
+            print_history(data, userid_sign)
+        else:
+            print("Please select a valid number")
+    
+#The main function. i.e. The function when the user selects is s/he wants to sign-up/in untill he exits
 def main():
     if curr_sel == "1" :
         name = input("Please state your name: ")
@@ -156,8 +194,7 @@ def main():
         }
        
     #  File Creation
-        file_create(userid, username, name, pin, status, password, balance)
-    
+        user_create(userid, username, name, pin, status, password, balance)
     
     elif curr_sel == "2":
         userid_sign = input("Please enter your Userid: ")
@@ -178,43 +215,16 @@ def main():
                 current_password = user['Password']
                 current_balance = user['Balance']
                 flag =1
+           
         if flag==0:
-            print("No account found")            
-        current_username = userid_sign
-        print("Hello Mr/Ms. " + current_name)
-        post_signin = "1"
-        while post_signin != "0":
-            post_signin = input("""What would you like to do?
-            1. Change Password
-            2. Change Pin
-            3. Balance Inquiry
-            4. Add Balance
-            5. Withdrawl
-            6. Transaction History
-            0. Signout
-            """)
-            if post_signin == "1":
-                chng_pwd(current_password)
-
-            elif post_signin == "2":
-                chng_pin(current_pin)
-
-            elif post_signin == "3":
-                balance_inquiry(current_balance)
-                
-            elif post_signin == "4":
-                add_balance(current_balance)
-              
-            elif post_signin == "5":
-                withdrawal(current_balance)
-    
-            elif post_signin == "6":
-                print_history(data, userid_sign)
-            else:
-                print("Please select a valid number")
+            print("No account found")
+        elif flag == 1:
+            signed_in(current_username, userid_sign, current_name, current_password, current_pin, current_balance, data)
+            
     else:
         print("Please select a valid number")
-
+        
+#Code starts execution from here.
 if __name__ == "__main__":
     print("Hello and Welcome")
     curr_sel = "1"
