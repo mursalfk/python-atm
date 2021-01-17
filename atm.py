@@ -9,7 +9,6 @@ def write_json_func(data, filename):
     with open(filename,'w') as f: 
         json.dump(data, f, indent=4)
     
-
 def user_create(userid, username, name, pin, status, password, balance): 
     """Function for creating the user in JSON File"""
     with open('data.json') as json_file: 
@@ -29,18 +28,19 @@ def user_create(userid, username, name, pin, status, password, balance):
     write_json_func(data, filename='data.json')
 
 def change_pwd_n_pin(post_signin):
-    """Updating the Password at Runtime"""   
+    """Updating the Password and Pin at Runtime"""   
     
+    """Selects whether the user has selected to change the pin or password"""
     if post_signin == "1":
         key_word = "Password"
     elif post_signin == "2":
-        key_word = "pin"            
-            
+        key_word = "pin"
+    
+    """Opens the file and starts changing process"""
     with open('data.json') as json_file: 
         data = json.load(json_file)
         userid = input("Please enter your Userid Again: ")
         filtered = list(filter(lambda f: (f["id"] == userid), data["userdata"]))
-
         new = input("Please enter your new %s: " %key_word)
         new_confirm = input("Please enter your new %s again: " %key_word)
         if new == new_confirm:
@@ -71,9 +71,12 @@ def add_balance(current_balance):
 
 def withdrawal(current_balance):
     """Function for withdrawal"""
+    
+    """If the current balance is 0, Doesn't even bothers to ask how much money you want"""
     if current_balance == 0:
         print("Sorry. Your Current Balance is 0")
     else: 
+        """If Your balance is not 0, opens the file and proceeds"""
         with open('data.json') as json_file: 
             data = json.load(json_file)
             userid = input("Please enter your Userid Again: ")
