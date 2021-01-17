@@ -9,6 +9,7 @@ def write_json_func(data, filename):
     with open(filename,'w') as f: 
         json.dump(data, f, indent=4)
     
+
 def user_create(userid, username, name, pin, status, password, balance): 
     """Function for creating the user in JSON File"""
     with open('data.json') as json_file: 
@@ -28,19 +29,18 @@ def user_create(userid, username, name, pin, status, password, balance):
     write_json_func(data, filename='data.json')
 
 def change_pwd_n_pin(post_signin):
-    """Updating the Password and Pin at Runtime"""   
+    """Updating the Password at Runtime"""   
     
-    """Selects whether the user has selected to change the pin or password"""
     if post_signin == "1":
         key_word = "Password"
     elif post_signin == "2":
-        key_word = "pin"
-    
-    """Opens the file and starts changing process"""
+        key_word = "pin"            
+            
     with open('data.json') as json_file: 
         data = json.load(json_file)
         userid = input("Please enter your Userid Again: ")
         filtered = list(filter(lambda f: (f["id"] == userid), data["userdata"]))
+
         new = input("Please enter your new %s: " %key_word)
         new_confirm = input("Please enter your new %s again: " %key_word)
         if new == new_confirm:
@@ -50,18 +50,27 @@ def change_pwd_n_pin(post_signin):
             input("Your %s did not match. Please Start over and try again." %key_word)
     write_json_func(data, filename='data.json') 
 
-def balance_inquiry(current_balance):
+def current_balance_func(current_id, current_password):
+    """Function for Retrieving Live Current Balance of User"""
+    with open('data.json') as json_file: 
+        data = json.load(json_file) 
+    for user in data['userdata']:
+        if user['id']==current_id and user['Password'] == current_password:
+            current_balance = user['Balance']
+    return current_balance
+    
+def balance_inquiry(current_id, current_password):
     """Check Balance (Need Updatation)"""
-    print("Your Current Balance is %s Rupees." %current_balance )
+    
+    print("Your Current Balance is %s Rupeese." %current_balance_func(current_id, current_password) )
 
-def add_balance(current_balance):
+def add_balance(current_id, current_password):
     """Function to Add Balance"""
     with open('data.json') as json_file: 
         data = json.load(json_file)
-        userid = input("Please enter your Userid Again: ")
-        filtered = list(filter(lambda f: (f["id"] == userid), data["userdata"]))
+        filtered = list(filter(lambda f: (f["id"] == current_id), data["userdata"]))
         add_balance = int(input("How much Balance You want to Add? "))
-        new_balance = int(current_balance) + int(add_balance)
+        new_balance = int(current_balance_func(current_id, current_password)) + int(add_balance)
         print("Balance Successfully Added!")
         filtered[0]["Balance"] = new_balance
         my_date = datetime.datetime.now()
@@ -69,23 +78,19 @@ def add_balance(current_balance):
         filtered[0]["transactions"][str(my_date_formatted)] = "Added " + str(add_balance)    
     write_json_func(data, filename='data.json')
 
-def withdrawal(current_balance):
+def withdrawal(current_id, current_password):
     """Function for withdrawal"""
-    
-    """If the current balance is 0, Doesn't even bothers to ask how much money you want"""
-    if current_balance == 0:
+    if current_balance_func(current_id, current_password) == 0:
         print("Sorry. Your Current Balance is 0")
     else: 
-        """If Your balance is not 0, opens the file and proceeds"""
         with open('data.json') as json_file: 
             data = json.load(json_file)
-            userid = input("Please enter your Userid Again: ")
-            filtered = list(filter(lambda f: (f["id"] == userid), data["userdata"]))
+            filtered = list(filter(lambda f: (f["id"] == current_id), data["userdata"]))
             balance_wihdrawl = int(input("How much Balance You want to Withdraw? "))
-            if balance_wihdrawl > current_balance:
+            if balance_wihdrawl > current_balance_func(current_id, current_password):
                 print("You do not have sufficient balance.")
             else:
-                new_balance = current_balance - balance_wihdrawl
+                new_balance = current_balance_func(current_id, current_password) - balance_wihdrawl
                 print("Withdrawl Successful!")
                 filtered[0]["Balance"] = new_balance
                 my_date = datetime.datetime.now()
@@ -93,15 +98,17 @@ def withdrawal(current_balance):
                 filtered[0]["transactions"][str(my_date_formatted)] = "Withdrawn " + str(balance_wihdrawl)
         write_json_func(data, filename='data.json') 
 
-def print_history(data, userid_sign):
+def print_history(data, userid_sign, current_password):
     """Function to print Transaction History"""
+    with open('data.json') as json_file: 
+        data = json.load(json_file) 
     for user in data['userdata']:
-        if user['id']==userid_sign:
-            print("Transaction History:")
+        if user['id']==userid_sign and user['Password'] == current_password:
+            print("  < == == Transaction History == == >")
             for each in user['transactions']:
                 print(each + " : " + user['transactions'][each])   
 
-def signed_in(current_username, userid_sign, current_name, current_password, current_pin, current_balance, data):
+def signed_in(current_id, current_username, userid_sign, current_name, current_password, current_pin, current_balance, data):
     """When the user is signed in, now it decides what it has to do (it = user)"""
     current_username = userid_sign
     print("Hello Mr/Ms. " + current_name)
@@ -131,16 +138,16 @@ def signed_in(current_username, userid_sign, current_name, current_password, cur
                 print("Please enter the correct pin and start over. Thanks")
 
         elif post_signin == "3":
-            balance_inquiry(current_balance)
+            balance_inquiry(current_id, current_password)
 
         elif post_signin == "4":
-            add_balance(current_balance)
+            add_balance(current_id, current_password)
 
         elif post_signin == "5":
-            withdrawal(current_balance)
+            withdrawal(current_id, current_password)
 
         elif post_signin == "6":
-            print_history(data, userid_sign)
+            print_history(data, userid_sign, current_password)
         else:
             print("Please select a valid number")
     
@@ -210,7 +217,7 @@ def main():
         if flag==0:
             print("No account found")
         elif flag == 1:
-            signed_in(current_username, userid_sign, current_name, current_password, current_pin, current_balance, data)
+            signed_in(current_id, current_username, userid_sign, current_name, current_password, current_pin, current_balance, data)
             
     else:
         print("Please select a valid number")
