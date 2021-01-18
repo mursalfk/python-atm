@@ -28,7 +28,7 @@ def user_create(userid, username, name, pin, status, password, balance):
         temp.append(userdata_temp)
     write_json_func(data, filename='data.json')
 
-def change_pwd_n_pin(post_signin):
+def change_pwd_n_pin(post_signin, userid):
     """Updating the Password at Runtime"""   
     
     if post_signin == "1":
@@ -38,7 +38,6 @@ def change_pwd_n_pin(post_signin):
             
     with open('data.json') as json_file: 
         data = json.load(json_file)
-        userid = input("Please enter your Userid Again: ")
         filtered = list(filter(lambda f: (f["id"] == userid), data["userdata"]))
 
         new = input("Please enter your new %s: " %key_word)
@@ -126,14 +125,14 @@ def signed_in(current_id, current_username, userid_sign, current_name, current_p
         if post_signin == "1":
             confirm_password = input("Please enter your current Password: ")
             if confirm_password == current_password:
-                change_pwd_n_pin(post_signin)
+                change_pwd_n_pin(post_signin, current_id)
             else:
                 print("Please enter the correct password and start over. Thanks")
         
         elif post_signin == "2":
             confirm_pin = input("Please enter your current Pin: ")
             if confirm_pin == current_pin:
-                change_pwd_n_pin(post_signin)
+                change_pwd_n_pin(post_signin, current_id)
             else:
                 print("Please enter the correct pin and start over. Thanks")
 
@@ -208,7 +207,7 @@ def main():
                 current_id = user['id']
                 current_username = user['Username']
                 current_name = user['Name']
-                current_pin = user['pin']
+                current_pin = user['Pin']
                 current_status = user["Account Status"]
                 current_password = user['Password']
                 current_balance = user['Balance']
