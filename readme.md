@@ -5,84 +5,55 @@
 [![GitHub stars](https://img.shields.io/github/stars/mursalfk/python-atm)](https://github.com/mursalfk/python-atm/stargazers)
 [![GitHub license](https://img.shields.io/github/license/mursalfk/python-atm)](https://github.com/mursalfk/python-atm)
 
-
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
 [![Product Name Screen Shot][product-screenshot]](https://https://github.com/mursalfk/python-atm/blob/main/ATM_SC.jpg)
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
+This project is made to replicate the working of standard Automated Teller Machines or ATMs used for banking. According to [Investopedia](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiFuf3X56nuAhVIZcAKHelXDDoQFjACegQICBAC&url=https%3A%2F%2Fwww.investopedia.com%2Fterms%2Fa%2Fatm.asp%23%3A~%3Atext%3DATMs%2520are%2520convenient%252C%2520allowing%2520consumers%2Cthe%2520ATM%252C%2520or%2520by%2520both.&usg=AOvVaw0gLVPDRz1if91pqnuHuI88):
+> ATMs are convenient, allowing consumers to perform quick self-service transactions such as deposits, cash withdrawals, bill payments, and transfers between accounts. Fees are commonly charged for cash withdrawals by the bank where the account is located, by the operator of the ATM, or by both.
+In our project, we chose to resimplify by redeining the experience of an average user.
 Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
+* Your time should be focused on creating something amazing. Not worrying about your privacy and bank account all the time
+* You shouldn't be doing the same tasks, over and over **like** entering your PIN, or Password. 
 * You should element DRY principles to the rest of your life :smile:
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
+Of course, no one service will serve all purposes since your needs may be different. But at this project, we have tried to serve at our best. This project can:
+* Add New Users
+* Change Your Password
+* Change Your Pin
+* Add Balance
+* Withdraw Your Balance
+* Check Your LIVE Balance any time
+* Signout and Signin anytime without closing the program
+* Complete security
 
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+All your data is saved in a single JSON file, so that you don't need to worry about the loss of your data ever Again :wink:
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
+The project is made with the most simple techniques and tools.
+* [Python](https://python.org)
 
+Python is used as the main language to create this project because of its efficiancy and user friendly approace. To store the data, JSON is used. 
 
+Whereas, in the future, we plan to:
+- [x] Use Django Framwork to implement a GUI (Graphical User Interface) for a better user approach/
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+You Should have Python installed on your system, and a JSON file named __data.json__ with the following piece of code already in the file
+    ```
+        {
+            "userdata": [
+            ]
+        }
+    ```
 
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -105,29 +76,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Mursal Furqan - [@in/mursal.furqan](linkhttps://www.linkedin.com/in/mursalfurqan/) - mursalfurqan@gmail.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
-
-
-
-
-
+Project Link: [https://github.com/mursalfk/python-atm/](https://github.com/mursalfk/python-atm/)
 
 [product-screenshot]: ATM_SC.jpg
