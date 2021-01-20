@@ -37,7 +37,7 @@ The project is made with the most simple techniques and tools.
 Python is used as the main language to create this project because of its efficiancy and user friendly approace. To store the data, JSON is used. 
 
 Whereas, in the future, we plan to:
-- [x] Use Django Framwork to implement a GUI (Graphical User Interface) for a better user approach/
+- [ ] Use Django Framwork to implement a GUI (Graphical User Interface) for a better user approach/
 
 <!-- GETTING STARTED -->
 ## Getting Started
