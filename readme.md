@@ -1,8 +1,10 @@
 # ATM - Automated Teller Machine
-[![Issues][issues-shield]][issues-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![MIT License][license-shield]][license-url]
+
+[![GitHub issues](https://img.shields.io/github/issues/mursalfk/python-atm)](https://github.com/mursalfk/python-atm/issues)
+[![GitHub forks](https://img.shields.io/github/forks/mursalfk/python-atm)](https://github.com/mursalfk/python-atm/network)
+[![GitHub stars](https://img.shields.io/github/stars/mursalfk/python-atm)](https://github.com/mursalfk/python-atm/stargazers)
+[![GitHub license](https://img.shields.io/github/license/mursalfk/python-atm)](https://github.com/mursalfk/python-atm)
+
 
 
 
@@ -127,14 +129,5 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[issues-shield]: 	https://img.shields.io/github/issues/mursalfk/python-atm
-[issues-url]: h	https://img.shields.io/github/issues/mursalfk/python-atm
-[forks-shield]: https://img.shields.io/github/forks/mursalfk/python-atm
-[forks-url]: https://img.shields.io/github/forks/mursalfk/python-atm
-[stars-shield]: https://img.shields.io/github/stars/mursalfk/python-atm
-[stars-url]: https://img.shields.io/github/stars/mursalfk/python-atm
-[license-shield]: https://img.shields.io/github/license/mursalfk/python-atm
-[license-url]: https://img.shields.io/github/license/mursalfk/python-atm
+
 [product-screenshot]: ATM_SC.jpg
