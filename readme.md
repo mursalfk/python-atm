@@ -53,6 +53,11 @@ You Should have Python installed on your system, and a JSON file named __data.js
             ]
         }
     ```
+    
+## How to start
+Open any commant line interface, e.g. CMD, GitBash or anyother terminal and type:
+
+    python atm.py
 
 ## Contributing
 
