@@ -7,8 +7,7 @@ import datetime
 def write_json_func(data, filename):
     """Function for writing data back in the JSON File"""
     with open(filename,'w') as f: 
-        json.dump(data, f, indent=4)
-    
+        json.dump(data, f, indent=4)  
 
 def user_create(userid, username, name, pin, status, password, balance): 
     """Function for creating the user in JSON File"""
